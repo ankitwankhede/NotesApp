@@ -1,0 +1,30 @@
+body {
+    background-image: url("assets/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+img {
+    width: 35px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 10px;
+}
+
+li {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+li:hover {
+    font-weight: 800;
+    background-color: #c668b5;
+    color: white;
+}
+
+label,
+input {
+    margin-bottom: 20px;
+}
