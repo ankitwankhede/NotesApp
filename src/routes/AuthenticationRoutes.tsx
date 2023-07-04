@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import ASYNC_KEYS from "../constant/constant";
 
 export default function AuthenticatonRoutes() {
   return (
@@ -9,9 +11,28 @@ export default function AuthenticatonRoutes() {
 }
 
 function Login() {
+  type FormData = {
+    username: string;
+    password: string;
+  };
+
+  const [formData, setFormData] = useState<FormData>({
+    username: "",
+    password: "",
+  });
+  function onSubmitHandler(event: React.ChangeEvent<HTMLFormElement>) {
+    event.preventDefault();
+    alert(JSON.stringify(formData));
+    localStorage.setItem(ASYNC_KEYS.LOGIN_CRED, JSON.stringify(formData));
+    console.log("--- " + localStorage.getItem(ASYNC_KEYS.LOGIN_CRED));
+  }
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  }
+
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <h1>as</h1>
       <div
         style={{
           height: "100vh",
@@ -21,9 +42,7 @@ function Login() {
         }}
       >
         <form
-          onClick={(e) => {
-            console.log(e.target);
-          }}
+          onSubmit={onSubmitHandler}
           style={{
             display: "flex",
             backgroundColor: "white",
@@ -33,9 +52,21 @@ function Login() {
           }}
         >
           <label htmlFor="username">Username</label>
-          <input id="username" type="text" name="username" />
+          <input
+            id="username"
+            type="text"
+            value={formData.username}
+            onChange={onChangeHandler}
+            name="username"
+          />
           <label htmlFor="pwd">Password</label>
-          <input id="pwd" type="text" name="pwd" />
+          <input
+            id="pwd"
+            type="text"
+            value={formData.password}
+            onChange={onChangeHandler}
+            name="password"
+          />
           <input type="submit" />
         </form>
       </div>

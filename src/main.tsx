@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import AuthenticatonRoutes from "./routes/AuthenticationRoutes.tsx";
 import HomeScreenRoutes from "./routes/HomeScreenRoutes.tsx";
+import ASYNC_KEYS from "./constant/constant.ts";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -14,5 +15,13 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 
 function LandingPage() {
-  return true ? <AuthenticatonRoutes /> : <HomeScreenRoutes />;
+  return !isUserValid() ? <AuthenticatonRoutes /> : <HomeScreenRoutes />;
+}
+
+function isUserValid(): boolean {
+  let loginCred: string | null = localStorage.getItem(ASYNC_KEYS.LOGIN_CRED);
+  return (
+    JSON.parse(loginCred).username === "ankit" &&
+    JSON.parse(loginCred).password === "123"
+  );
 }
