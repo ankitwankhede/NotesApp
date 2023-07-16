@@ -1,7 +1,9 @@
 import { createRef, useEffect, useState } from "react";
-import Note from "../../component/Note";
+import Note from "../../component/Note/Note";
 import { menu, menu_open } from "../../assets";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import styles from "./HomePage.module.css";
+import { SideBar } from "../../component/Sidebar/Sidebar";
 
 export default function HomePage() {
   const [notes] = useState<number>(1);
@@ -69,30 +71,6 @@ export default function HomePage() {
           <Outlet />
         )}
       </div>
-    </div>
-  );
-}
-
-function SideBar(props: { show: boolean }) {
-  return (
-    <div
-      style={{
-        backgroundColor: "white",
-        width: "25vw",
-        height: "100%",
-        minHeight: "600px",
-        opacity: 0.3,
-        display: props.show ? "inline-block" : "none",
-      }}
-    >
-      <ul>
-        <li>
-          <Link to="/pending_task">Pending Task</Link>
-        </li>
-        <li>
-          <Link to="/completed_task">Completed Task</Link>
-        </li>
-      </ul>
     </div>
   );
 }

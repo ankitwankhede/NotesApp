@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 
 function LandingPage() {
-  return !isUserValid() ? <AuthenticatonRoutes /> : <HomeScreenRoutes />;
+  return isUserValid() ? <AuthenticatonRoutes /> : <HomeScreenRoutes />;
 }
 
 function isUserValid(): boolean {

@@ -1,0 +1,15 @@
+.formContainer {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formStyle {
+    display: flex;
+    border-radius: 20px;
+    background-color: white;
+    opacity: 0.325;
+    flex-direction: column;
+    padding: 10%;
+}
