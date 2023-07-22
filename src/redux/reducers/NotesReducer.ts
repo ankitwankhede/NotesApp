@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type Note = {
+export type NoteType = {
   id: number;
   text: string;
   priority: "High" | "Medium" | "Low";
@@ -10,7 +10,7 @@ type Note = {
 };
 
 type NoteState = {
-  Notes: Note[];
+  Notes: NoteType[];
 };
 
 const initialState: NoteState = {

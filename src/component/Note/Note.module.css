@@ -4,7 +4,9 @@
     border-radius: 15px;
     border-color: white;
     border-width: 1px;
-    padding: 20px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     border-style: solid;
     margin: 10px;
     opacity: 0.315;
@@ -13,14 +15,15 @@
 
 .noteHeader {
     background-color: red;
+    box-sizing: border-box;
 }
 
 .noteBody {
     background-color: green;
 }
 
-.noteOtions {
-    width: 100%;
+.noteOptions {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    justify-content: flex-end;
 }

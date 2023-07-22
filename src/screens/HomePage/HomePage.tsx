@@ -8,7 +8,6 @@ import { RootState } from "../../redux/store";
 import { ADD_NOTE } from "../../redux/reducers/NotesReducer";
 
 export default function HomePage() {
-  const [notes] = useState<number>(1);
   const navigate = useNavigate();
   const location = useLocation();
   const [sideBarShow, setSideBarShow] = useState<boolean>(false);
@@ -16,7 +15,6 @@ export default function HomePage() {
   const Notes = useSelector((state: RootState) => state.noteReducer.Notes);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(`-- - ${JSON.stringify(Notes, null, 2)}`);
     return () => {};
   }, [Notes]);
 
@@ -28,7 +26,7 @@ export default function HomePage() {
           onClick={(e) => {
             e.preventDefault();
             let temp = {
-              id: 10,
+              id: 1,
               text: "abcd",
               priority: "Low",
               status: "Pending",
@@ -73,18 +71,10 @@ export default function HomePage() {
               height: "550px",
             }}
           >
-            {notes == 0 ? (
-              <h5>not found</h5>
+            {Notes.length === 0 ? (
+              <h1>no</h1>
             ) : (
-              <>
-                <Note />
-                <Note />
-                <Note />
-                <Note />
-                <Note />
-                <Note />
-                <Note />
-              </>
+              Notes.map((note) => <Note props={note} key={note.id} />)
             )}
           </div>
         ) : (

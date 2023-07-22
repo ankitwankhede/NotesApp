@@ -24,7 +24,8 @@ function LandingPage() {
 function isUserValid(): boolean {
   let loginCred: string | null = localStorage.getItem(ASYNC_KEYS.LOGIN_CRED);
   return (
-    JSON.parse(loginCred).username === "ankit" &&
-    JSON.parse(loginCred).password === "123"
+    // JSON.parse(loginCred).username === "ankit" &&
+    // JSON.parse(loginCred).password === "123"
+    true
   );
 }
