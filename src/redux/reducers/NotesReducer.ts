@@ -1,5 +1,4 @@
-import Note from "../../component/Note/Note";
-import { ADD_NOTE, DELETE_NOTE } from "../actions/NotesActions";
+import { createSlice } from "@reduxjs/toolkit";
 
 type Note = {
   id: number;
@@ -10,24 +9,25 @@ type Note = {
   completed_time: string;
 };
 
-type initialState = {
+type NoteState = {
   Notes: Note[];
 };
 
-export function saveNote(data: Note) {
-  return {
-    type: ADD_NOTE,
-    payload: data,
-  };
-}
+const initialState: NoteState = {
+  Notes: [],
+};
 
-export function NotesReducers(state: initialState, action:any) {
-  switch (action.type) {
-    case ADD_NOTE:
-      return { ...state.Notes, action.payload };
-    case DELETE_NOTE:
-      return;
-
-    default: return state;
-  }
-}
+export const noteSlice = createSlice({
+  name: "noteReducer",
+  initialState,
+  reducers: {
+    ADD_NOTE: (state, action) => {
+      state.Notes.push(action.payload);
+    },
+    DELETE_NOTE: (state, action) => {
+      state.Notes = state.Notes.filter((note) => note.id != action.payload.id);
+    },
+  },
+});
+export const { ADD_NOTE, DELETE_NOTE } = noteSlice.actions;
+export default noteSlice.reducer;
