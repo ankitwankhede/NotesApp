@@ -14,9 +14,15 @@ export default function HomePage() {
   const imgRef = createRef<HTMLImageElement>();
   const Notes = useSelector((state: RootState) => state.noteReducer.Notes);
   const dispatch = useDispatch();
+
   useEffect(() => {
+    console.log(`-- - homepage useeffect`);
     return () => {};
   }, [Notes]);
+
+  function change(noteId: number, modifyType: string) {
+    console.log(`called - - - - ${noteId} $ ${modifyType}`);
+  }
 
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
@@ -26,7 +32,7 @@ export default function HomePage() {
           onClick={(e) => {
             e.preventDefault();
             let temp = {
-              id: 1,
+              id: Notes.length + 1,
               text: "abcd",
               priority: "Low",
               status: "Pending",
@@ -74,7 +80,9 @@ export default function HomePage() {
             {Notes.length === 0 ? (
               <h1>no</h1>
             ) : (
-              Notes.map((note) => <Note props={note} key={note.id} />)
+              Notes.map((note) => (
+                <Note props={note} key={note.id} modifyCallback={change} />
+              ))
             )}
           </div>
         ) : (
