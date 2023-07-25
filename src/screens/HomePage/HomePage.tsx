@@ -11,6 +11,7 @@ export default function HomePage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [sideBarShow, setSideBarShow] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const imgRef = createRef<HTMLImageElement>();
   const Notes = useSelector((state: RootState) => state.noteReducer.Notes);
   const dispatch = useDispatch();
@@ -29,70 +30,113 @@ export default function HomePage() {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
-      <SideBar show={sideBarShow} />
-      <div>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            let temp = {
-              id: (Math.random() * 10000 + 1).toFixed(3),
-              text: "abcd",
-              priority: "Low",
-              status: "Pending",
-              created_time: "",
-              completed_time: "",
-            };
-            dispatch(ADD_NOTE(temp));
-          }}
-        >
-          asdasdas
-        </button>
+    <>
+      {showModal ? (
         <div
           style={{
+            opacity: 0.315,
+            backgroundColor: "white",
+            width: "100vw",
+            height: "100vh",
+            position: "absolute",
             display: "flex",
-            flexDirection: "row",
+            justifyContent: "center",
             alignItems: "center",
-            width: "350px",
-            height: "50px",
           }}
         >
-          <img
-            src={sideBarShow ? menu_open : menu}
-            ref={imgRef}
-            onClick={() => {
-              setSideBarShow((prevState) => {
-                let menuSrcRef = imgRef.current?.src;
-                menuSrcRef = prevState ? menu : menu_open;
-                return !prevState;
-              });
+          <div
+            style={{
+              backgroundColor: "red",
+              width: "200px",
+              height: "200px",
             }}
-          />
-          <h1 onClick={() => navigate("/")} style={{ color: "white" }}>
-            Notes
-          </h1>
+          >
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <button
+                onClick={(event) => {
+                  event.preventDefault();
+                  setShowModal((prevState) => !prevState);
+                }}
+              >
+                close
+              </button>
+            </div>
+          </div>
         </div>
-        {location.pathname === "/" ? (
+      ) : null}
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <SideBar show={sideBarShow} />
+        <div>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              let temp = {
+                id: (Math.random() * 10000 + 1).toFixed(3),
+                text: "abcd",
+                priority: "Low",
+                status: "Pending",
+                created_time: "",
+                completed_time: "",
+              };
+              dispatch(ADD_NOTE(temp));
+            }}
+          >
+            asdasdas
+          </button>
+          <button
+            onClick={(event) => {
+              event.preventDefault();
+              setShowModal((prevState) => !prevState);
+            }}
+          >
+            modal
+          </button>
           <div
             style={{
               display: "flex",
-              flexWrap: "wrap",
-              overflowY: "auto",
-              height: "550px",
+              flexDirection: "row",
+              alignItems: "center",
+              width: "350px",
+              height: "50px",
             }}
           >
-            {Notes.length === 0 ? (
-              <h1>no</h1>
-            ) : (
-              Notes.map((note) => (
-                <Note props={note} key={note.id} modifyCallback={change} />
-              ))
-            )}
+            <img
+              src={sideBarShow ? menu_open : menu}
+              ref={imgRef}
+              onClick={() => {
+                setSideBarShow((prevState) => {
+                  let menuSrcRef = imgRef.current?.src;
+                  menuSrcRef = prevState ? menu : menu_open;
+                  return !prevState;
+                });
+              }}
+            />
+            <h1 onClick={() => navigate("/")} style={{ color: "white" }}>
+              Notes
+            </h1>
           </div>
-        ) : (
-          <Outlet />
-        )}
+          {location.pathname === "/" ? (
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                overflowY: "auto",
+                height: "550px",
+              }}
+            >
+              {Notes.length === 0 ? (
+                <h1>no</h1>
+              ) : (
+                Notes.map((note) => (
+                  <Note props={note} key={note.id} modifyCallback={change} />
+                ))
+              )}
+            </div>
+          ) : (
+            <Outlet />
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
