@@ -5,7 +5,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { SideBar } from "../../component/Sidebar/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { ADD_NOTE } from "../../redux/reducers/NotesReducer";
+import { ADD_NOTE, DELETE_NOTE } from "../../redux/reducers/NotesReducer";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -22,6 +22,10 @@ export default function HomePage() {
 
   function change(noteId: number, modifyType: string) {
     console.log(`called - - - - ${noteId} $ ${modifyType}`);
+    if (modifyType === "editNote") {
+    } else if (modifyType === "deleteNote") {
+      dispatch(DELETE_NOTE(noteId));
+    }
   }
 
   return (
@@ -32,7 +36,7 @@ export default function HomePage() {
           onClick={(e) => {
             e.preventDefault();
             let temp = {
-              id: Notes.length + 1,
+              id: (Math.random() * 10000 + 1).toFixed(3),
               text: "abcd",
               priority: "Low",
               status: "Pending",

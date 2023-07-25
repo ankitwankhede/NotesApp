@@ -2,7 +2,7 @@ import { add_circle, edit } from "../../assets";
 import { NoteType } from "../../redux/reducers/NotesReducer";
 import styles from "./Note.module.css";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 type NoteProp = {
   props: NoteType;
@@ -10,7 +10,6 @@ type NoteProp = {
 };
 
 export default function Note({ props, modifyCallback }: NoteProp) {
-  const dispatch = useDispatch();
   const Notes = useSelector((state: RootState) => state.noteReducer.Notes);
 
   useEffect(() => {
